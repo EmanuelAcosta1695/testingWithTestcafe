@@ -12,7 +12,7 @@ export default class LoginPage {
     async login(username, password) {
 
         // Los if estan para poder hacer la pruebas de no username o password
-        // testcafe no acepta empy string entonces cuando intente ingresar los valores arrojara error
+        // testcafe no acepta empty string entonces cuando intente ingresar los valores arrojara error
         if (username !== null && username !== undefined && username !== '') {
             await t.typeText(this.usernameInput, username);
           }
@@ -25,6 +25,7 @@ export default class LoginPage {
 
     }
 
+    // mensaje de error en logeo de users
     async checkErrorMessage() {
         console.log(this.errorMessageBox.innerText);
         return this.errorMessageBox.innerText;

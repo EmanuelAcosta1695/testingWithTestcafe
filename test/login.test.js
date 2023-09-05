@@ -7,14 +7,6 @@ fixture`Login`.page`https://www.saucedemo.com/`;
 const loginPage = new LoginPage();
 const homePage = new HomePage();
 
-// Función de manejo de error
-// async function handleErrors(testFunction) {
-//   try {
-//     await testFunction();
-//   } catch (error) {
-//     console.error('Se produjo un error:', error);
-//   }
-// }
 
 // Prueba de inicio de sesión exitoso
 test('Iniciar sesión exitosamente con user: standard_user', async (t) => {
@@ -22,22 +14,42 @@ test('Iniciar sesión exitosamente con user: standard_user', async (t) => {
     await t.expect(await homePage.getWelcomeMessage()).eql('Swag Labs');
 });
 
-// // VER SI PUEDO AÑADIRLE UN CHEQUEO DE TIEMPO
-// // Prueba de inicio de sesión exitoso con user: performance_glitch_user
-// test('Iniciar sesión exitosamente con user: performance_glitch_user', async (t) => {
-//     await loginPage.login('performance_glitch_user', 'secret_sauce');
-//     await t.expect(await homePage.getWelcomeMessage()).eql('Swag Labs');
-// });
+
+// VER SI PUEDO AÑADIRLE UN CHEQUEO DE TIEMPO
+// Prueba de inicio de sesión exitoso con user: performance_glitch_user
+test('Iniciar sesión exitosamente con user: performance_glitch_user', async (t) => {
+    // Registra el tiempo de inicio
+    const startTime = new Date();
+
+    await loginPage.login("performance_glitch_user", "secret_sauce");
+
+    // Registra el tiempo de finalización
+    const endTime = new Date();
+
+    // Calcula el tiempo transcurrido en milisegundos
+    const elapsedTime = endTime - startTime;
+
+    const maxAllowedTime = 2000; // Tiempo máximo permitido en milisegundos (en este caso, 2 segundos)
+
+    if (elapsedTime > maxAllowedTime) {
+        // aserción menor que
+        await t.expect(elapsedTime).lt(maxAllowedTime)
+    }
+});
 
 
+
+// muestra mal las imagenes en el inicio luego de logearse
 // Prueba de inicio de sesión exitoso con user: problem_user
 test('Iniciar sesión exitosamente con user: problem_user', async (t) => {
     await loginPage.login('problem_user', 'secret_sauce');
     await t.expect(await homePage.getWelcomeMessage()).eql('Swag Labs');
 });
 
+
 // ------------------------------------------------------
 /* ERROR */
+
 
 // Prueba de fallo de inicio de sesión con user: locked_out_user
 // Usuario bloqueado
