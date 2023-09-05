@@ -3,6 +3,8 @@ import { Selector, t } from 'testcafe';
 export default class LoginPage {
     constructor() {
         
+        /* Cart */
+
         // button to add 'sauce labs backpack' to cart
         this.addItemToCart = Selector('#add-to-cart-sauce-labs-backpack');
        
@@ -12,14 +14,40 @@ export default class LoginPage {
         // cart list
         this.cartList = Selector('.cart_list');
 
+
+        /* Buying flow */
+
         // button continue shopping
-        this.continueShopping = Selector('#continue-shopping');
+        this.checkout = Selector('#checkout');
+
+        this.firstName = Selector('input#first-name');
+        this.lastName = Selector('input#last-name');
+        this.postalCode = Selector('input#postal-code');
+
+        this.continue = Selector('#continue');
+
+        this.finish = Selector('#finish');
+
+        this.completeMessage = Selector('.complete-header');
+
+        this.backToProducts = Selector('#back-to-products');
+        
+
+        /* Log out */
 
         // dropdown menu
         this.burgerButton = Selector('#react-burger-menu-btn')
 
         // Selector para el elemento que contiene el enlace de Logout
         this.menuContainer = Selector('#menu_button_container');
+
+        // button continue shopping
+        //this.continueShopping = Selector('#continue-shopping');
+    }
+
+
+    async getCompleteMessage() {
+        return this.completeMessage.innerText;
     }
 
 
@@ -47,13 +75,29 @@ export default class LoginPage {
         
         // check if the element 'sauce labs backpack' is in the cart
         await t.expect(cartItem.exists).ok();
+    }
 
-        // continue shopping
-        await t.click(this.continueShopping);
+
+    async buy(firstName, lastName, postalCode) {
+        
+        await t.click(this.checkout);
+
+        // introduce personal data
+        await t.typeText(this.firstName, firstName);
+        await t.typeText(this.lastName, lastName);
+        await t.typeText(this.postalCode, postalCode);
+
+        await t.click(this.continue);
+
+        // finalize purchase
+        await t.click(this.finish);
     }
 
 
     async logout() {
+        // back to list of items
+        await t.click(this.backToProducts);
+
         // Click the button that opens the menu
         await t.click(this.burgerButton);
 

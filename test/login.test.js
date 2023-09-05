@@ -15,7 +15,6 @@ test('Iniciar sesión exitosamente con user: standard_user', async (t) => {
 });
 
 
-// VER SI PUEDO AÑADIRLE UN CHEQUEO DE TIEMPO
 // Prueba de inicio de sesión exitoso con user: performance_glitch_user
 test('Iniciar sesión exitosamente con user: performance_glitch_user', async (t) => {
     // Registra el tiempo de inicio
